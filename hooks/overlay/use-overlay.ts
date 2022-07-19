@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useId, useState } from "react";
 
 export default function useOverlay() {
-  const router = useRouter();
+  const { events, push, back } = useRouter();
   const id = useId();
   const [visible, setVisible] = useState(false);
   const [initialized, setInitialized] = useState(false);
@@ -21,11 +21,11 @@ export default function useOverlay() {
 
     return new Promise<void>((resolve) => {
       const removeListener = () => {
-        router.events.off("hashChangeComplete", removeListener);
+        events.off("hashChangeComplete", removeListener);
 
         resolve();
       };
-      router.events.on("hashChangeComplete", removeListener);
+      events.on("hashChangeComplete", removeListener);
 
       setVisible(false);
     });
@@ -51,11 +51,12 @@ export default function useOverlay() {
     const currentHash = window.location.hash.replace("#", "");
 
     if (visible === true && currentHash !== id) {
-      router.push(`#${id}`);
+      push(`#${id}`);
     }
     if (visible === false && currentHash === id) {
-      router.back();
+      back();
     }
+    // push, back은 렌더링시 새로 정의됨
   }, [id, initialized, visible]);
 
   useEffect(() => {
@@ -71,15 +72,15 @@ export default function useOverlay() {
     };
 
     if (initialized === true) {
-      router.events.on("routeChangeComplete", syncVisibleWithHash);
-      router.events.on("hashChangeComplete", syncVisibleWithHash);
+      events.on("routeChangeComplete", syncVisibleWithHash);
+      events.on("hashChangeComplete", syncVisibleWithHash);
 
       return () => {
-        router.events.off("routeChangeComplete", syncVisibleWithHash);
-        router.events.off("hashChangeComplete", syncVisibleWithHash);
+        events.off("routeChangeComplete", syncVisibleWithHash);
+        events.off("hashChangeComplete", syncVisibleWithHash);
       };
     }
-  }, [id, initialized, visible]);
+  }, [events, id, initialized, visible]);
 
   useEffect(() => {
     if (visible) {
@@ -89,13 +90,13 @@ export default function useOverlay() {
         );
       };
 
-      router.events.on("routeChangeStart", warnRouteChange);
+      events.on("routeChangeStart", warnRouteChange);
 
       return () => {
-        router.events.off("routeChangeStart", warnRouteChange);
+        events.off("routeChangeStart", warnRouteChange);
       };
     }
-  }, [router.events, visible]);
+  }, [events, visible]);
 
   return { visible, raise, dismiss };
 }
