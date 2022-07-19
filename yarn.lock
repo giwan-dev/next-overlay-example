@@ -1611,11 +1611,22 @@ __metadata:
     eslint: 8.20.0
     eslint-config-next: 12.2.2
     next: 12.2.2
+    next-overlay: ^0.0.1-0
     react: 18.2.0
     react-dom: 18.2.0
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
+
+"next-overlay@npm:^0.0.1-0":
+  version: 0.0.1-0
+  resolution: "next-overlay@npm:0.0.1-0"
+  peerDependencies:
+    next: ^12.0.0
+    react: ^18.0.0
+  checksum: aedb4414ba0bcf405e701a3e9e548055d1aa722b5b1c2c57d36f84dba71e8fb0280745ff6c65b9bd10810b8fa0192e9ba0b92b489557a48a1db9978d5484bb25
+  languageName: node
+  linkType: hard
 
 "next@npm:12.2.2":
   version: 12.2.2
