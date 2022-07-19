@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 
 export default function useOverlay() {
   const { events, push, back } = useRouter();
@@ -7,14 +7,14 @@ export default function useOverlay() {
   const [visible, setVisible] = useState(false);
   const [initialized, setInitialized] = useState(false);
 
-  const raise = () => {
+  const raise = useCallback(() => {
     if (initialized === false) {
       return;
     }
     setVisible(true);
-  };
+  }, [initialized]);
 
-  const dismiss = () => {
+  const dismiss = useCallback(() => {
     if (initialized === false) {
       return;
     }
@@ -29,7 +29,7 @@ export default function useOverlay() {
 
       setVisible(false);
     });
-  };
+  }, [events, initialized]);
 
   useEffect(() => {
     const initialHash = window.location.hash.replace("#", "");
