@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useOverlay } from "../hooks/overlay";
+import { useOverlay } from "next-overlay";
 
 export default function IndexPage() {
   const { visible, raise, dismiss } = useOverlay();
