@@ -1,34 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# next-overlay-example
 
-## Getting Started
+Next.js 환경에서 화면을 가리는 UI 요소를 렌더링할 때 쓸 수 있는 훅을 구현합니다.
 
-First, run the development server:
+`useOverlay` 훅은 `visible`, `raise`, `dismiss`를 반환합니다. `visible`은 화면에 UI 요소를 표시할 지 여부를 저장하는 state입니다.
+`raise` 함수는 `visible`을 true로 만들어주는 함수입니다.
+`dismiss` 함수는 `visible`을 false로 만들어주는 함수입니다. Promise를 반환합니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+뒤로 가기로 overlay를 닫을 수 있습니다. 반대로 앞으로 가기로 overlay를 열 수 있습니다.
+overlay가 열린 상태로 새로 고침해도 overlay가 열려 있습니다.
