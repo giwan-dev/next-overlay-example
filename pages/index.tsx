@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useOverlay } from "../hooks/overlay";
 
 export default function IndexPage() {
   const { visible, raise, dismiss } = useOverlay();
+  const router = useRouter();
 
   return (
     <div>
@@ -14,7 +16,15 @@ export default function IndexPage() {
       {visible ? (
         <div>
           This is dialog
-          <button onClick={dismiss}>close</button>
+          <button
+            onClick={async () => {
+              await dismiss();
+
+              await router.push("?foo=bar");
+            }}
+          >
+            close
+          </button>
         </div>
       ) : null}
     </div>

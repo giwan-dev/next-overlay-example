@@ -18,7 +18,17 @@ export default function useOverlay() {
     if (initialized === false) {
       return;
     }
-    setVisible(false);
+
+    return new Promise<void>((resolve) => {
+      const removeListener = () => {
+        router.events.off("hashChangeComplete", removeListener);
+
+        resolve();
+      };
+      router.events.on("hashChangeComplete", removeListener);
+
+      setVisible(false);
+    });
   };
 
   useEffect(() => {
